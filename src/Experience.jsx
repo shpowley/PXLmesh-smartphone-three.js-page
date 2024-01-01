@@ -1,10 +1,14 @@
-import { Billboard, Environment, Float, Image, PresentationControls } from '@react-three/drei'
-import ModelPhone from './models/ModelPhone'
-import { useControls, folder } from 'leva'
-import { parameterEnabled } from './common/Utils'
 import { useThree } from '@react-three/fiber'
+import { Billboard, Environment, Float, Image, PresentationControls } from '@react-three/drei'
+// import { useSpring } from '@react-spring/three'
+
+import ModelLogo from './models/ModelLogo'
+import ModelPhone from './models/ModelPhone'
+import { useControls, folder, button } from 'leva'
+import { parameterEnabled } from './common/Utils'
 import { IMAGES, VIDEOS } from './common/Constants'
 import useVideoStore from './store/videoStore'
+import { useRef } from 'react'
 // import { Suspense, lazy } from 'react'
 
 
@@ -54,6 +58,8 @@ const AppIcons = () => {
 
 
 const Experience = ({ camera_init }) => {
+  const ref_logo = useRef()
+
   const camera = useThree(state => state.camera)
 
   // CAMERA CONTROLS
@@ -106,6 +112,39 @@ const Experience = ({ camera_init }) => {
           camera.lookAt(0, 0, 0)
         }
       },
+    },
+
+    { collapsed: true }
+  )
+
+  const controls_logo = useControls(
+    'logo',
+
+    {
+      visible: {
+        value: true,
+      },
+
+      scale: {
+        value: 2.0,
+        min: 0.1,
+        max: 2,
+        step: 0.01,
+      },
+
+      position: {
+        value: [0.4, 0.11, 1.1],
+        step: 0.01,
+      },
+
+      rotation: {
+        value: [0.17, 0.65, 0],
+        step: 0.01,
+      },
+
+      'animate': button(() => {
+        ref_logo.current.animateLogo()
+      }),
     },
 
     { collapsed: true }
@@ -228,11 +267,20 @@ const Experience = ({ camera_init }) => {
     { collapsed: true }
   )
 
+  // const [{ react_spring_x }, react_spring_api] = useSpring((
+  //   () => ({
+  //     react_spring_x: 0,
+  //     config: { mass: 7, tension: 800, friction: 100, precision: 0.0001 },
+
+  //     // onRest: () => {
+  //     //   console.log('rest', ref_logo.current.position)
+  //     //   // ref_logo.current.visible = false
+  //     // }
+  //   })
+  // ), [])
 
   return <>
-    {
-      Perf && <Perf position='bottom-right' />
-    }
+    {Perf && <Perf position='bottom-right' />}
 
     {/* <directionalLight castShadow position={[1, 2, -3]} intensity={1.5} />
     <ambientLight intensity={0.5} /> */}
@@ -296,6 +344,23 @@ const Experience = ({ camera_init }) => {
         />
       </Float>
     </PresentationControls>
+
+    <ModelLogo
+      forward_ref={ref_logo}
+
+      visible={controls_logo.visible}
+      position={controls_logo.position}
+      scale={controls_logo.scale}
+      rotation={controls_logo.rotation}
+
+      // position-x={react_spring_x.to([0, 1], [0, 12.0])}
+
+      // onClick={() => {
+      //   console.log('click')
+      //   react_spring_x.set(0)
+      //   react_spring_api.start({ react_spring_x: 1 })
+      // }}
+    />
 
     <Billboard position={[-(icon_scale + icon_spacing) * 1.5, -1.82, 1]}>
       <AppIcons />

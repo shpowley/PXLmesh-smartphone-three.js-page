@@ -1,6 +1,6 @@
 import { useGLTF } from "@react-three/drei"
 import { useSpring, animated } from '@react-spring/three'
-import { useRef } from 'react'
+import { useImperativeHandle, useRef } from 'react'
 
 const FILE_PXLMESH_LOGO = './models/pxlmesh-logo-compressed.glb'
 
@@ -20,7 +20,6 @@ const Pixel = ({ position, nodes, materials }) => {
   </group>
 }
 
-// const ModelLogo = (props) => {
 const ModelLogo = (props) => {
   const ref_logo = useRef()
 
@@ -33,10 +32,10 @@ const ModelLogo = (props) => {
   // REACT SPRING - PXLMESH LOGO ANIMATION
   let animated_x
 
-  const [{ react_spring_x }, api] = useSpring((
+  const [{ react_spring_x }, react_spring_api] = useSpring((
     () => ({
       react_spring_x: 0,
-      config: { mass: 7, tension: 800, friction: 100, precision: 0.0001 },
+      config: { mass: 7, tension: 600, friction: 100, precision: 0.0001 },
 
       onRest: () => {
         console.log('rest', ref_logo.current.position)
@@ -45,21 +44,22 @@ const ModelLogo = (props) => {
     })
   ), [])
 
+  const animateLogo = () => {
+    console.log('animate')
+    react_spring_x.set(0)
+    react_spring_api.start({ react_spring_x: 1 })
+  }
+
+  // https://react.dev/reference/react/useImperativeHandle
+  useImperativeHandle(props.forward_ref, () => ({
+    animateLogo
+  }))
+
   // animated_x = react_spring_x.to([0, 1], [0, 12.0]) // center to start
   animated_x = react_spring_x.to([0, 1], [12.0, 0]) // start to center
   // animated_x = react_spring_x.to([0, 1], [0, -3.5]) // center to end
 
-  return <group
-    {...props}
-    dispose={null}
-
-    // onClick={() => setAnimatingLogo(value => !value)}
-    onClick={() => {
-      console.log('click', ref_logo.current.position)
-      react_spring_x.set(0)
-      api.start({ react_spring_x: 1 })
-    }}
-  >
+  return <group {...props}>
     <animated.group
       position-x={animated_x}
 
