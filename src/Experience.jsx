@@ -5,6 +5,7 @@ import { parameterEnabled } from './common/Utils'
 import { useThree } from '@react-three/fiber'
 import { IMAGES, VIDEOS } from './common/Constants'
 import useVideoStore from './store/videoStore'
+// import { Suspense, lazy } from 'react'
 
 
 // DYNAMIC IMPORT FOR R3F PERFORMANCE MONITOR
@@ -12,6 +13,7 @@ let Perf = null
 
 if (parameterEnabled('PERF') || parameterEnabled('perf')) {
   Perf = (await import('r3f-perf')).Perf
+  // Perf = lazy(() => import('r3f-perf').then(module => ({ default: module.Perf })))
 }
 
 
@@ -228,7 +230,9 @@ const Experience = ({ camera_init }) => {
 
 
   return <>
-    {Perf && <Perf position='bottom-right' />}
+    {
+      Perf && <Perf position='bottom-right' />
+    }
 
     {/* <directionalLight castShadow position={[1, 2, -3]} intensity={1.5} />
     <ambientLight intensity={0.5} /> */}
