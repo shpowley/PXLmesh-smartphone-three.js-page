@@ -1,6 +1,5 @@
 import { useThree } from '@react-three/fiber'
 import { Billboard, Environment, Float, Image, PresentationControls } from '@react-three/drei'
-// import { useSpring } from '@react-spring/three'
 
 import ModelLogo from './models/ModelLogo'
 import ModelPhone from './models/ModelPhone'
@@ -9,7 +8,6 @@ import { parameterEnabled } from './common/Utils'
 import { IMAGES, VIDEOS } from './common/Constants'
 import useVideoStore from './store/videoStore'
 import { useRef } from 'react'
-// import { Suspense, lazy } from 'react'
 
 
 // DYNAMIC IMPORT FOR R3F PERFORMANCE MONITOR
@@ -267,18 +265,6 @@ const Experience = ({ camera_init }) => {
     { collapsed: true }
   )
 
-  // const [{ react_spring_x }, react_spring_api] = useSpring((
-  //   () => ({
-  //     react_spring_x: 0,
-  //     config: { mass: 7, tension: 800, friction: 100, precision: 0.0001 },
-
-  //     // onRest: () => {
-  //     //   console.log('rest', ref_logo.current.position)
-  //     //   // ref_logo.current.visible = false
-  //     // }
-  //   })
-  // ), [])
-
   return <>
     {Perf && <Perf position='bottom-right' />}
 
@@ -289,28 +275,6 @@ const Experience = ({ camera_init }) => {
       // background
       preset='city'
     />
-
-    {/*
-    --- REFERENCE CODE FOR ASPECT RATIO ---
-    const size = useAspect(800, 600, 0.3) // defined prior to return statement
-
-    <mesh
-      scale={size}
-      position={[0, 2, -3]}
-    >
-      <planeGeometry />
-
-      {
-        film
-          ?
-          <Suspense fallback={<FallbackMaterial url={CONSTANTS.IMAGE_FALLBACK} />}>
-            <VideoMaterial url={film} />
-          </Suspense>
-          :
-          <meshBasicMaterial color={0x000000} />
-      }
-    </mesh>
-    */}
 
     <PresentationControls
       global={controls_phone.presentation_global}
@@ -345,6 +309,10 @@ const Experience = ({ camera_init }) => {
       </Float>
     </PresentationControls>
 
+    <Billboard position={[-(icon_scale + icon_spacing) * 1.5, -1.82, 1]}>
+      <AppIcons />
+    </Billboard>
+
     <ModelLogo
       forward_ref={ref_logo}
 
@@ -352,19 +320,7 @@ const Experience = ({ camera_init }) => {
       position={controls_logo.position}
       scale={controls_logo.scale}
       rotation={controls_logo.rotation}
-
-      // position-x={react_spring_x.to([0, 1], [0, 12.0])}
-
-      // onClick={() => {
-      //   console.log('click')
-      //   react_spring_x.set(0)
-      //   react_spring_api.start({ react_spring_x: 1 })
-      // }}
     />
-
-    <Billboard position={[-(icon_scale + icon_spacing) * 1.5, -1.82, 1]}>
-      <AppIcons />
-    </Billboard>
 
   </>
 }
