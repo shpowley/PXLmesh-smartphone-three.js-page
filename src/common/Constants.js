@@ -10,26 +10,10 @@ const VIDEOS = {
 
 const IMAGES = {
   GOOGLE_PLAY_PNG: './images/google-play-badge.png',
-
-  LUCKY_CAT_PNG: './images/lucky-cat.png',
   LUCKY_CAT_WEBP: './images/lucky-cat.webp',
-  LUCKY_CAT_GRAPHIC_PNG: './images/lucky-cat-graphic.png',
-  LUCKY_CAT_GRAPHIC_WEBP: './images/lucky-cat-graphic.webp',
-
-  FANTASY_DICE_PNG: './images/fantasy-dice.png',
   FANTASY_DICE_WEBP: './images/fantasy-dice.webp',
-  FANTASY_DICE_GRAPHIC_PNG: './images/fantasy-dice-graphic.png',
-  FANTASY_DICE_GRAPHIC_WEBP: './images/fantasy-dice-graphic.webp',
-
-  DOGECOIN_PNG: './images/dogecoin.png',
   DOGECOIN_WEBP: './images/dogecoin.webp',
-  DOGECOIN_GRAPHIC_PNG: './images/dogecoin-graphic.png',
-  DOGECOIN_GRAPHIC_WEBP: './images/dogecoin_graphic.webp',
-
-  BITCOIN_PNG: './images/bitcoin.png',
-  BITCOIN_WEBP: './images/bitcoin.webp',
-  BITCOIN_GRAPHIC_PNG: './images/bitcoin-graphic.png',
-  BITCOIN_GRAPHIC_WEBP: './images/bitcoin-graphic.webp',
+  BITCOIN_WEBP: './images/bitcoin.webp'
 }
 
 export { IMAGES, VIDEOS }

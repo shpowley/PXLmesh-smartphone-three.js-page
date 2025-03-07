@@ -28,7 +28,7 @@ const VideoMaterial = ({
   }
 
   // DREI: useVideoTexture
-  // https://github.com/pmndrs/drei#usetexture
+  // https://github.com/pmndrs/drei?tab=readme-ov-file#videotexture--usevideotexture
   const texture = useVideoTexture(video_url)
 
   // shrink/grow/flip texture

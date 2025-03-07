@@ -7,15 +7,15 @@ import { useControls, folder, button } from 'leva'
 import { parameterEnabled } from './common/Utils'
 import { IMAGES, VIDEOS } from './common/Constants'
 import useVideoStore from './store/videoStore'
-import { useRef } from 'react'
+import { lazy, useRef } from 'react'
 
 
 // DYNAMIC IMPORT FOR R3F PERFORMANCE MONITOR
 let Perf = null
 
 if (parameterEnabled('PERF') || parameterEnabled('perf')) {
-  Perf = (await import('r3f-perf')).Perf
-  // Perf = lazy(() => import('r3f-perf').then(module => ({ default: module.Perf })))
+  // Perf = (await import('r3f-perf')).Perf
+  Perf = lazy(() => import('r3f-perf').then(module => ({ default: module.Perf })))
 }
 
 
@@ -321,7 +321,6 @@ const Experience = ({ camera_init }) => {
       scale={controls_logo.scale}
       rotation={controls_logo.rotation}
     />
-
   </>
 }
 
