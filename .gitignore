@@ -1,0 +1,9 @@
+## DIRECTORIES
+node_modules
+phone-3d-models
+
+## FILES
+package-lock.json
+vite.config.js
+NOTES.txt
+TASKS.txt
